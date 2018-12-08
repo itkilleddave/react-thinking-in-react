@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 
 const data = [
-  {id: 1, category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
-  {id: 2, category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
-  {id: 3, category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
-  {id: 4, category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
-  {id: 5, category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
-  {id: 6, category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
+  {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
+  {category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
+  {category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
+  {category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
+  {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
+  {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
 ];
 
 class SearchableProductTable extends Component {
@@ -16,23 +16,23 @@ class SearchableProductTable extends Component {
     this.state = {
       filterText: ''
     }
-    this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleOnChangeFilterText = this.handleOnChangeFilterText.bind(this);
   }
-  handleOnChange(e) {
+  handleOnChangeFilterText(e) {
     this.setState({filterText: e.target.value});
   }
   render() {
 
     const filterText = this.state.filterText;
     const products = this.props.products;
-    const filteredProducts = products.map(
-      (item, index) => (item.name.includes(filterText)) ? item : false
+    const filteredProducts = products.filter(
+      (item, index) => (item.name.includes(filterText)) ? item : null
       );
 
     return (
       <div>
         <SearchBar
-        onChange={this.handleOnChange} 
+        onChange={this.handleOnChangeFilterText} 
         valueFilterText={filterText} 
         />
         <ProductTable products={filteredProducts} />
@@ -70,14 +70,14 @@ class ProductTable extends Component {
         category = products[i]['category'];
         productMarkup.push(
           <ProductCategoryRow 
-          key={products[i]['category']} 
-          name={products[i]['category']} 
+          key={category} 
+          name={category} 
           />
           );
       }
       productMarkup.push(
         <ProductRow 
-        key={products[i]['id']} 
+        key={products[i]['name']} 
         name={products[i]['name']} 
         price={products[i]['price']} 
         stocked={products[i]['stocked']} 

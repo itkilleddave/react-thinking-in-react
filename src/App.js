@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 
 const data = [
-  {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
-  {category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
-  {category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
-  {category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
-  {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
-  {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
+  {id: 1, category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
+  {id: 2, category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
+  {id: 3, category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
+  {id: 4, category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
+  {id: 5, category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
+  {id: 6, category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
 ];
 
 class SearchableProductTable extends Component {
@@ -33,7 +33,7 @@ class SearchableProductTable extends Component {
       <div>
         <SearchBar
         onChange={this.handleOnChange} 
-        value={filterText} 
+        valueFilterText={filterText} 
         />
         <ProductTable products={filteredProducts} />
       </div>
@@ -41,25 +41,21 @@ class SearchableProductTable extends Component {
   }
 }
 class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   render() {
     return (
       <div>
       <input 
       className="search-field" 
       onChange={this.props.onChange}
-      value={this.props.value}
+      value={this.props.valueFilterText}
       />
       </div>
       );
   }
 }
 class ProductTable extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   render() {
 
     // build product markup
@@ -70,16 +66,18 @@ class ProductTable extends Component {
 
     for (var i = products.length - 1; i >= 0; i--) {
 
-      if (products[i]['category'] != category) {
+      if (products[i]['category'] !== category) {
         category = products[i]['category'];
         productMarkup.push(
           <ProductCategoryRow 
+          key={products[i]['category']} 
           name={products[i]['category']} 
           />
           );
       }
       productMarkup.push(
         <ProductRow 
+        key={products[i]['id']} 
         name={products[i]['name']} 
         price={products[i]['price']} 
         stocked={products[i]['stocked']} 
@@ -104,9 +102,7 @@ class ProductTable extends Component {
 }
 
 class ProductRow extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   render() {
     return (
       <tr className={!this.props.stocked ? 'not-stocked' : ''}>
@@ -118,9 +114,7 @@ class ProductRow extends Component {
 }
 
 class ProductCategoryRow extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   render() {
     return (
       <tr className="product-category">

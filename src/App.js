@@ -14,19 +14,32 @@ class SearchableProductTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterText: ''
+      filterText: '',
+      inStockOnly: false
     }
     this.handleOnChangeFilterText = this.handleOnChangeFilterText.bind(this);
+    this.handleOnChangeInStockOnly = this.handleOnChangeInStockOnly.bind(this);
   }
   handleOnChangeFilterText(ft) {
     this.setState({filterText: ft});
   }
+  handleOnChangeInStockOnly(iso) {
+    this.setState({inStockOnly: iso});
+  }
   render() {
 
     const filterText = this.state.filterText;
+    const inStockOnly = this.state.inStockOnly;
+
     const products = this.props.products;
     const filteredProducts = products.filter(
-      (item, index) => (item.name.includes(filterText)) ? item : null
+      (item, index) => 
+      (
+      item.name.includes(filterText) 
+      && 
+      ((item.stocked && inStockOnly) || !inStockOnly)
+      )
+       ? item : false
       );
 
     return (
@@ -34,6 +47,8 @@ class SearchableProductTable extends Component {
         <SearchBar
         valueFilterText={filterText} 
         onChangeFilterText={this.handleOnChangeFilterText}
+        valueInStockOnly={inStockOnly} 
+        onChangeInStockOnly={this.handleOnChangeInStockOnly}
         />
         <ProductTable products={filteredProducts} />
       </div>
@@ -44,18 +59,30 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.handleOnChangeFilterText = this.handleOnChangeFilterText.bind(this);
+    this.handleOnChangeInStockOnly = this.handleOnChangeInStockOnly.bind(this);
   }
   handleOnChangeFilterText(e) {
     this.props.onChangeFilterText(e.target.value);
+  }
+  handleOnChangeInStockOnly(e) {
+    this.props.onChangeInStockOnly(e.target.checked);
   }
   render() {
     return (
       <div>
       <input 
+      type="text"
       className="search-field" 
       onChange={this.handleOnChangeFilterText}
       value={this.props.valueFilterText}
       />
+      <br />
+      <input 
+      type="checkbox"
+      onChange={this.handleOnChangeInStockOnly}
+      checked={this.props.valueInStockOnly}
+      />
+      <span> In Stock Only</span>
       </div>
       );
   }

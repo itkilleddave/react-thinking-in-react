@@ -18,8 +18,8 @@ class SearchableProductTable extends Component {
     }
     this.handleOnChangeFilterText = this.handleOnChangeFilterText.bind(this);
   }
-  handleOnChangeFilterText(e) {
-    this.setState({filterText: e.target.value});
+  handleOnChangeFilterText(ft) {
+    this.setState({filterText: ft});
   }
   render() {
 
@@ -32,8 +32,8 @@ class SearchableProductTable extends Component {
     return (
       <div>
         <SearchBar
-        onChange={this.handleOnChangeFilterText} 
         valueFilterText={filterText} 
+        onChangeFilterText={this.handleOnChangeFilterText}
         />
         <ProductTable products={filteredProducts} />
       </div>
@@ -41,13 +41,19 @@ class SearchableProductTable extends Component {
   }
 }
 class SearchBar extends Component {
-
+  constructor(props) {
+    super(props);
+    this.handleOnChangeFilterText = this.handleOnChangeFilterText.bind(this);
+  }
+  handleOnChangeFilterText(e) {
+    this.props.onChangeFilterText(e.target.value);
+  }
   render() {
     return (
       <div>
       <input 
       className="search-field" 
-      onChange={this.props.onChange}
+      onChange={this.handleOnChangeFilterText}
       value={this.props.valueFilterText}
       />
       </div>

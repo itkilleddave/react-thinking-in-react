@@ -3,16 +3,3 @@
   padding: 30px;
   font-size: 13px;
 }
-.product-category {
-  background: #eee;
-}
-td, th {
-  padding-bottom: 10px;
-  padding-right: 20px;
-}
-.search-field {
-  margin-bottom: 10px;
-}
-.not-stocked {
-  color: red;
-}

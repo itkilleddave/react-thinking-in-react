@@ -1,3 +1,4 @@
+import './SearchableProductTable.css';
 import React, { Component } from 'react';
 
 class SearchableProductTable extends Component {

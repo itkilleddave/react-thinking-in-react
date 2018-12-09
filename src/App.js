@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import SearchableProductTable from './Components/SearchableProductTable';
+import TicTacToe from './Components/TicTacToe';
 
 const data = [
   {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
@@ -11,11 +12,20 @@ const data = [
   {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
 ];
 
+const appComponents = {
+ searchableProductTable : <SearchableProductTable products={data} />,
+ ticTacToe : <TicTacToe />
+}
+
+// set runApp to the appComponents key name above that you want to run
+
+const runApp = "ticTacToe";
+
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <SearchableProductTable products={data} />
+         {appComponents[runApp]}
       </div>
     );
   }

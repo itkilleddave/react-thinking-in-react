@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import SearchableProductTable from './Components/SearchableProductTable';
 import TicTacToe from './Components/TicTacToe';
+import FreeCodeCamp from './Components/FreeCodeCamp';
 
 const data = [
   {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
@@ -14,12 +15,13 @@ const data = [
 
 const appComponents = {
  searchableProductTable : <SearchableProductTable products={data} />,
- ticTacToe : <TicTacToe />
+ ticTacToe : <TicTacToe />,
+ freeCodeCamp : <FreeCodeCamp />,
 }
 
 // set runApp to the appComponents key name above that you want to run
 
-const runApp = "ticTacToe";
+const runApp = "freeCodeCamp";
 
 class App extends Component {
   render() {

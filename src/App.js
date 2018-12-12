@@ -3,6 +3,7 @@ import './App.css';
 import SearchableProductTable from './Components/SearchableProductTable';
 import TicTacToe from './Components/TicTacToe';
 import FreeCodeCamp from './Components/FreeCodeCamp';
+import HelloWorld from './Components/HelloWorld';
 
 const data = [
   {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
@@ -14,6 +15,7 @@ const data = [
 ];
 
 const appComponents = {
+ helloWorld : <HelloWorld />,
  searchableProductTable : <SearchableProductTable products={data} />,
  ticTacToe : <TicTacToe />,
  freeCodeCamp : <FreeCodeCamp />,
@@ -21,7 +23,7 @@ const appComponents = {
 
 // set runApp to the appComponents key name above that you want to run
 
-const runApp = "freeCodeCamp";
+const runApp = "helloWorld";
 
 class App extends Component {
   render() {

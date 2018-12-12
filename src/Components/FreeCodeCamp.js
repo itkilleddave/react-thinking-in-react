@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 // pure React (non JSX) functions
 
-function Button (props) {
+function PureButton (props) {
 
   return React.createElement(
     "button", // element
@@ -12,7 +12,7 @@ function Button (props) {
     props.label // children
     );
 }
-function Heading(props) {
+function PureHeading(props) {
 
   return React.createElement(
     "h1", // element
@@ -20,7 +20,7 @@ function Heading(props) {
     props.words // children
     );
 }
-function Content(props) {
+function PureContent(props) {
 
   return React.createElement(
     "span", // element
@@ -29,9 +29,130 @@ function Content(props) {
     "Then I said : "+props.content,
     "For the last time I said : "+props.content,
     // children (nesting other react components)
-    React.createElement(Heading, {words: "Heading - "+props.content}),
-    React.createElement(Button, {label: "inspect me!"}),
+    React.createElement(PureHeading, {words: "Heading - "+props.content}),
+    React.createElement(PureButton, {label: "inspect me!"}),
     );
+
+}
+
+// JSX
+
+const NameDisplay = (props) => <div>{props.name}</div>;
+
+const ErrorDisplay = (props) => <div style={{color:'#f00', background:'yellow'}}>
+                                Good one, {props.firstName} {props.lastName}!
+                                </div>;
+
+const PropDisplay = ({just1prop}) => <div>
+                                      Can build for just the one prop, {just1prop}!
+                                      </div>;
+const ReturnDisplay = ({name}) => {
+                                  return "no div DOM wrap, so use a return, "+name+"!";
+                                  }
+
+const Doubler = ({input=[100,200,300]}) => {
+                              return input.map(i => (i*2)+"! ");
+       }
+// Class
+
+class MyHeading extends React.Component {
+
+    constructor(props) {
+      super(props);
+      this.animal = "elephant";
+    }
+
+    render() {
+      return <h1>my heading {this.props.number}, oh and {this.animal}!</h1>;
+    }
+}    
+
+class MyButton extends React.Component {
+
+  button1HandleClick() {
+    alert("1 - regular function");
+  }
+  button2HandleClick = () => {
+    alert("2 - same thing as 1, but written as arrow function");
+  }
+
+  render() {
+    return (
+      <div>
+      <button onClick={this.button1HandleClick}>
+      {this.props.label1}
+      </button>
+      <button onClick={this.button2HandleClick}>
+      {this.props.label2}
+      </button>
+      </div>
+      );
+  }
+}                   
+
+// class CounterButton extends React.Component {
+//   state = {
+//     clickCounter: 0,
+//     currentTimestamp: new Date(),
+//   };
+  
+//   handleClick = () => {
+//     this.setState((prevState) => {
+//      return { clickCounter: prevState.clickCounter + 1 };
+//     });
+//   };
+  
+//   componentDidMount() {
+//    setInterval(() => {
+//      this.setState({ currentTimestamp: new Date() })
+//     }, 1000);
+//   }
+  
+//   render() {
+//     return (
+//       <div>
+//         <button onClick={this.handleClick}>Click</button>
+//         <p>Clicked: {this.state.clickCounter}</p>
+//         <p>Time: {this.state.currentTimestamp.toLocaleString()}</p>
+//       </div>
+//     );
+//   }
+// }
+
+class CounterButton extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {clickCount: 12};
+  }
+  handleClick() {
+    const clickCount = this.state.clickCount+1;
+    this.setState({clickCount: clickCount});
+  }
+
+  render() {
+    const clickCount = this.state.clickCount;
+    return(
+    <div>
+     <button onClick={() => this.handleClick()}>Count is {clickCount}</button>
+    </div>
+    );
+  }
+
+  // handleClick = () => {
+  //   const clickCount = this.state.clickCount+1;
+  //   this.setState({clickCount: clickCount});
+  // }
+
+  // render() {
+  //   const clickCount = this.state.clickCount;
+  //   return(
+  //   <div>
+  //    <button onClick={this.handleClick}>Count is {clickCount}</button>
+  //   </div>
+  //   );
+  // }
+
 
 }
 
@@ -39,14 +160,33 @@ class FreeCodeCamp extends React.Component {
   render() {
     return (
       <div> 
-        {/* pure React (non JSX) functions */}
-        {React.createElement(Button, {label: "click me"})}
-        {React.createElement(Content, {content: "Content!!!"})}
 
-        {/*      
-        <Button label="click me" />
-        <BigHeading content="Abba Zibabba!" />
-        */}
+          {/* pure React (non JSX) functions */}
+
+          {React.createElement(PureButton, {label: "click me"})}
+          {React.createElement(PureContent, {content: "Content!!!"})}
+
+          {/*      
+          <Button label="click me" />
+          <BigHeading content="Abba Zibabba!" />
+          */}
+
+          {/* JSX */}
+
+          <NameDisplay name="daryl" />
+          <ErrorDisplay firstName="kevin" lastName="kook" />
+          <PropDisplay just1prop="hannah" />
+          <ReturnDisplay name="meryl" />
+          <br />
+          <Doubler input={[10,20,30]}/>
+          <br />
+          <Doubler/> {/* same Doubler function, but omitting the input uses the default from the definition paramters */}
+
+          {/* Class Syntax */}
+
+          <MyHeading number="one"/>
+          <MyButton label1="clikkkkk 1" label2="clikkkkk 2" />
+          <CounterButton />
 
       </div>
       );

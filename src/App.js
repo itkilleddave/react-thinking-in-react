@@ -23,7 +23,7 @@ const appComponents = {
 
 // set runApp to the appComponents key name above that you want to run
 
-const runApp = "helloWorld";
+const runApp = "freeCodeCamp";
 
 class App extends Component {
   render() {

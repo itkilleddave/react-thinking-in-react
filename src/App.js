@@ -4,6 +4,7 @@ import SearchableProductTable from './Components/SearchableProductTable';
 import TicTacToe from './Components/TicTacToe';
 import FreeCodeCamp from './Components/FreeCodeCamp';
 import HelloWorld from './Components/HelloWorld';
+import Api from './Components/Api';
 
 const data = [
   {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
@@ -19,11 +20,12 @@ const appComponents = {
  searchableProductTable : <SearchableProductTable products={data} />,
  ticTacToe : <TicTacToe />,
  freeCodeCamp : <FreeCodeCamp />,
+ api : <Api />,
 }
 
 // set runApp to the appComponents key name above that you want to run
 
-const runApp = "freeCodeCamp";
+const runApp = "api";
 
 class App extends Component {
   render() {

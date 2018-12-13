@@ -130,8 +130,18 @@ class CounterButton extends React.Component {
   }
 
   handleClick() { // no arrow function needed on definition
-    const clickCount = this.state.clickCount+1;
-    this.setState({clickCount: clickCount});
+
+      // wrong - setting and getting state without arrow function
+      // (i don't fully understand why this is wrong yet, but see below for recommended approach ap)
+      // const clickCount = this.state.clickCount+1; 
+      // this.setState({clickCount: clickCount});
+
+      // correct - using arrow function (with Reacts prevState) when reading and writing the state at the same time
+
+      this.setState((prevState) => {
+        return {clickCount: prevState.clickCount+1}
+      });
+
   }
 
   render() {  // no arrow function needed on reference

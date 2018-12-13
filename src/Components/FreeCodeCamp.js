@@ -121,23 +121,55 @@ class MyButton extends React.Component {
 
 class CounterButton extends React.Component {
 
+  // bind 'this' - ...
+
   constructor(props) {
     super(props);
     this.state = {clickCount: 12};
+    this.handleClick = this.handleClick.bind(this); // bind
   }
-  handleClick() {
+
+  handleClick() { // no arrow function needed on definition
     const clickCount = this.state.clickCount+1;
     this.setState({clickCount: clickCount});
   }
 
-  render() {
+  render() {  // no arrow function needed on reference
     const clickCount = this.state.clickCount;
     return(
     <div>
-     <button onClick={() => this.handleClick()}>Count is {clickCount}</button>
+     <button onClick={this.handleClick}>Count is {clickCount}</button>
     </div>
     );
   }
+
+  // arrow function in reference - works!
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {clickCount: 12};
+  // }
+
+  // handleClick() {
+  //   const clickCount = this.state.clickCount+1;
+  //   this.setState({clickCount: clickCount});
+  // }
+
+  // render() {
+  //   const clickCount = this.state.clickCount;
+  //   return(
+  //   <div>
+  //    <button onClick={() => this.handleClick()}>Count is {clickCount}</button>
+  //   </div>
+  //   );
+  // }
+
+  // arrow function in definition - works!
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {clickCount: 12};
+  // }
 
   // handleClick = () => {
   //   const clickCount = this.state.clickCount+1;

@@ -23,4 +23,8 @@ body {
 }
 .lable {
 	padding-left: 10px;
+	cursor: pointer;
+}
+input[type="checkbox"] {
+	cursor: pointer;
 }

@@ -2,8 +2,15 @@ import './ToDo.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function Heading() {
-	return <h1>My To Do List</h1>;
+const data = [
+	{id: 0, description: "Fix the washing machine" },
+	{id: 1, description: "Get food for the dog" },
+	{id: 2, description: "Trim the weeds" },
+	{id: 3, description: "Paint the fence" },
+];
+
+function Heading(props) {
+	return <h1>{props.title}</h1>;
 }
 class ItemRow extends React.Component {
 
@@ -11,35 +18,36 @@ class ItemRow extends React.Component {
 		return(
 				<li>
 					<label class="container">
-					  <input type="checkbox" />
-					  <span className="lable">One</span>
+					  <input type="checkbox" checked={this.props.checked} />
+					  <span className="lable">{this.props.description}</span>
 					</label>
 				</li>
 			);
 	}
 
 }
-class ItemList extends React.Component {
-
-	render() {
-		return(
-			<ul className="item-list">
-				<ItemRow />
-				<ItemRow />
-				<ItemRow />
-				<ItemRow />
-			</ul>
-			);
-	}
-}
 
 class ToDoList extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			items: this.props.data,
+		};
+	}
 
 	render() {
 		return(
 			<div className="to-do-list">
-			<Heading />
-			<ItemList />
+				<Heading title="My To Do List" />
+				<ul className="item-list">
+				{this.state.items.map((item) => 
+						<ItemRow 
+						description={item.description} 
+						checked={item.checked} 
+						/>
+					)}
+				</ul>
 			</div>
 			);
 	}
@@ -48,7 +56,7 @@ class ToDoList extends React.Component {
 class ToDo extends React.Component {
   render() {
     return (
-      <ToDoList />
+      <ToDoList data={data} />
       );
   }
 }

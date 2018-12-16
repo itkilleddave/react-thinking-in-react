@@ -2,7 +2,11 @@ import './ToDo.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const data = [
+// note: 'initData' will simulate the data that's passed from a backend/database to 'seed' the component
+// It doesnt break the 'single source of truth' rule, as it's a constant (read only), 
+// so while the state that seeds from it can be updated, this seed data can not mutate
+
+const initData = [
 	{id: 0, description: "Fix the washing machine" },
 	{id: 1, description: "Get food for the dog" },
 	{id: 2, description: "Trim the weeds" },
@@ -17,7 +21,7 @@ class ItemRow extends React.Component {
 	render() {
 		return(
 				<li>
-					<label class="container">
+					<label className="container">
 					  <input type="checkbox" checked={this.props.checked} />
 					  <span className="lable">{this.props.description}</span>
 					</label>
@@ -30,9 +34,10 @@ class ItemRow extends React.Component {
 class ToDoList extends React.Component {
 
 	constructor(props) {
+
 		super(props);
 		this.state = {
-			items: this.props.data,
+			items: initData, 
 		};
 	}
 
@@ -43,6 +48,7 @@ class ToDoList extends React.Component {
 				<ul className="item-list">
 				{this.state.items.map((item) => 
 						<ItemRow 
+						key={item.id}
 						description={item.description} 
 						checked={item.checked} 
 						/>
@@ -56,7 +62,7 @@ class ToDoList extends React.Component {
 class ToDo extends React.Component {
   render() {
     return (
-      <ToDoList data={data} />
+      <ToDoList />
       );
   }
 }

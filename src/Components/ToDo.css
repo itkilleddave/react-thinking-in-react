@@ -25,6 +25,11 @@ body {
 	padding-left: 10px;
 	cursor: pointer;
 }
+.list-number {
+	color:#c0c0c7;
+	display: inline-block;
+	width: 20px;
+}
 input[type="checkbox"] {
 	cursor: pointer;
 }

@@ -54,9 +54,9 @@ class InputAddItem extends React.Component {
 	handleChange(e) {
 		this.setState({value: e.target.value});
 	}
-	handleClick(e) {
+	handleClick() {
+		this.props.onClick(this.state.value);
 		this.setState({value: ''}); // reset text field
-		this.props.onClick(e);
 	}
 
 	render() {
@@ -68,7 +68,6 @@ class InputAddItem extends React.Component {
 				onChange={this.handleChange}
 				/>
 				<button 
-				value={this.state.value}
 				onClick={this.handleClick}
 				>
 				Add To List
@@ -94,9 +93,9 @@ class ToDoList extends React.Component {
 		this.handleChangeItem = this.handleChangeItem.bind(this);
 	}
 
-	handleClick(e) {
+	handleClick(value) {
 
-		if (e.target.value !== '') {
+		if (value) {
 
 			//console.log(e.target.value);
 
@@ -107,7 +106,7 @@ class ToDoList extends React.Component {
 				items: this.state.items.slice().concat(
 					[{
 						id: this.state.items.length, 
-						description: e.target.value,
+						description: value,
 						checked: false, 
 					}]
 					),

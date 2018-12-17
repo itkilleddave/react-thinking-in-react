@@ -13,6 +13,8 @@ const initData = [
 	{id: 3, description: "Paint the fence", 		checked:false },
 ];
 
+
+
 function Heading(props) {
 	return <h1>{props.title}</h1>;
 }
@@ -30,7 +32,7 @@ class ItemRow extends React.Component {
 					  />
 					  <span className="lable">
 					   <span className="list-number">
-					   {this.props.id+1}
+					   {this.props.id}
 					   </span>
 					   {this.props.description}
 					  </span>
@@ -89,8 +91,21 @@ class ToDoList extends React.Component {
 		// InputAddItem
 		this.handleClick = this.handleClick.bind(this);
 
+		// button (remove)
+		this.handleClickRemove = this.handleClickRemove.bind(this);
+
 		//ItemRow
 		this.handleChangeItem = this.handleChangeItem.bind(this);
+	}
+
+	highestId() {
+
+		let highestId = 0;
+
+		for (var i = 0; i < this.state.items.length; i++) {
+			highestId = (this.state.items[i].id > highestId) ? this.state.items[i].id : highestId;
+		}
+		return highestId;
 	}
 
 	handleClick(value) {
@@ -105,7 +120,7 @@ class ToDoList extends React.Component {
 				//copy items (slice) and append (concat) the new object 
 				items: this.state.items.slice().concat(
 					[{
-						id: this.state.items.length, 
+						id: this.highestId()+1, 
 						description: value,
 						checked: false, 
 					}]
@@ -135,14 +150,37 @@ class ToDoList extends React.Component {
 		});
 	}
 
+	handleClickRemove(e) {
+
+		//console.log(e.target.id);
+
+		const newItems = this.state.items.filter((item) => {
+			return item.checked ? false : true;
+		});
+
+		this.setState({
+			items: newItems
+		});
+	}
+
 	render() {
-		//console.log(this.state.items);
+		console.log(this.state.items);
 		return(
 			<div className="to-do-list">
+				
 				<Heading title="My To Do List" />
-				<InputAddItem 
-				onClick={this.handleClick}
-				/>
+
+				<div className="ui-bar">
+					<InputAddItem 
+					onClick={this.handleClick}
+					/>
+					<button 
+					onClick={this.handleClickRemove}
+					>
+					Remove Selected
+					</button>
+				</div>
+
 				<ul className="item-list">
 				{this.state.items.map((item) => 
 						<ItemRow 

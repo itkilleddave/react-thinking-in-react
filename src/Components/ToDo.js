@@ -91,7 +91,7 @@ class ToDoList extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 
 		//ItemRow
-		//this.handleChangeItem = this.handleChangeItem.bind(this);
+		this.handleChangeItem = this.handleChangeItem.bind(this);
 	}
 
 	handleClick(e) {
@@ -108,7 +108,7 @@ class ToDoList extends React.Component {
 					[{
 						id: this.state.items.length, 
 						description: e.target.value,
-						value: false, 
+						checked: false, 
 					}]
 					),
 				itemToAdd: '', // reset input value
@@ -122,26 +122,26 @@ class ToDoList extends React.Component {
 
 	// NOTE: Come back to this after the input file is not re-rendering on change 
 
-	// handleChangeItem(e) { 
+	handleChangeItem(e) { 
 
-	// 	//console.log(e.target.id);
+		console.log(e.target.id);
 
-	// 	const newItems = this.state.items.map((item) => 
-	// 		(item.id === parseInt(e.target.id))
-	// 		? { // replace the item matching id with updated checked value
-	// 			id: item.id, 
-	// 			description: item.description,
-	// 			checked: e.target.checked, 
-	// 		}
-	// 		: item);
+		const newItems = this.state.items.map((item) => 
+			(item.id === parseInt(e.target.id))
+			? { // replace the item matching id with updated checked value
+				id: item.id, 
+				description: item.description,
+				checked: e.target.checked, 
+			}
+			: item);
 
-	// 	//console.log(newItems);
-	// 	//console.log(this.state.items);
+		//console.log(newItems);
+		//console.log(this.state.items);
 
-	// 	this.setState({
-	// 		items: newItems
-	// 	});
-	// }
+		this.setState({
+			items: newItems
+		});
+	}
 
 	render() {
 		console.log(this.state.items);
@@ -158,7 +158,7 @@ class ToDoList extends React.Component {
 						<ItemRow 
 						key={item.id}
 						id={item.id}
-						description={item.description} 
+						description={item.description} //JSON.stringify(item)
 						checked={item.checked} 
 						onChange={this.handleChangeItem}
 						/>

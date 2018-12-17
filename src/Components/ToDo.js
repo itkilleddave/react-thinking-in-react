@@ -48,14 +48,16 @@ class InputAddItem extends React.Component {
 			value: '',
 		};
 		this.handleChange = this.handleChange.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 	}
 
 	handleChange(e) {
 		this.setState({value: e.target.value});
 	}
-	// handleClick(e) {
-
-	// }
+	handleClick(e) {
+		this.setState({value: ''}); // reset text field
+		this.props.onClick(e);
+	}
 
 	render() {
 		return(
@@ -67,7 +69,7 @@ class InputAddItem extends React.Component {
 				/>
 				<button 
 				value={this.state.value}
-				onClick={this.props.onClick}
+				onClick={this.handleClick}
 				>
 				Add To List
 				</button>
@@ -83,12 +85,10 @@ class ToDoList extends React.Component {
 		super(props);
 		this.state = {
 			items: initData, 
-			itemToAdd: '',
 		};
 
 		// InputAddItem
 		this.handleClick = this.handleClick.bind(this);
-		this.handleChange = this.handleChange.bind(this);
 
 		//ItemRow
 		this.handleChangeItem = this.handleChangeItem.bind(this);
@@ -111,20 +111,13 @@ class ToDoList extends React.Component {
 						checked: false, 
 					}]
 					),
-				itemToAdd: '', // reset input value
 			});
 		}
 	}
 
-	handleChange(e) {
-		this.setState({itemToAdd: e.target.value});
-	}
-
-	// NOTE: Come back to this after the input file is not re-rendering on change 
-
 	handleChangeItem(e) { 
 
-		console.log(e.target.id);
+		//console.log(e.target.id);
 
 		const newItems = this.state.items.map((item) => 
 			(item.id === parseInt(e.target.id))
@@ -144,13 +137,11 @@ class ToDoList extends React.Component {
 	}
 
 	render() {
-		console.log(this.state.items);
+		//console.log(this.state.items);
 		return(
 			<div className="to-do-list">
 				<Heading title="My To Do List" />
 				<InputAddItem 
-				//value={this.state.itemToAdd} 
-				//onChange={this.handleChange}
 				onClick={this.handleClick}
 				/>
 				<ul className="item-list">

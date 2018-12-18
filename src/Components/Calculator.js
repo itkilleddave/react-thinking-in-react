@@ -15,16 +15,30 @@ class Display extends React.Component {
 
 class Button extends React.Component {
 
+	constructor(props) {
+		super(props);
+
+		this.handleClick = this.handleClick.bind(this);
+	}
+	handleClick(e) {
+		return this.props.onClick(this.props.value);
+	}
 	render() {
 			if (this.props.type === "number") {
 				return(
-				<button className="btn btn-primary btn-block">
+				<button 
+				className="btn btn-primary btn-block"
+				onClick={this.handleClick}
+				>
 					{this.props.value}
 				</button>
 				); 
 			} else if (this.props.type === "function") {
 				return(
-				<button className="btn btn-secondary btn-block">
+				<button 
+				className="btn btn-secondary btn-block"
+				onClick={this.handleClick}
+				>
 					{this.props.value}
 				</button>
 				); 
@@ -33,88 +47,90 @@ class Button extends React.Component {
 }
 class Calc extends React.Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			value: 0,
+		};
+
+		this.handleClickNumnberBtn = this.handleClickNumnberBtn.bind(this);
+		this.handleClickFunctionBtn = this.handleClickFunctionBtn.bind(this);
+
+		this.buttons = [
+			// row
+			{label:"C", 	type: "function"},
+			{label:"+/-", 	type: "function"},
+			{label:"%", 	type: "function"},
+			{label:"/", 	type: "function"},
+			// row
+			{label:"7", 	type: "number"},
+			{label:"8", 	type: "number"},
+			{label:"9", 	type: "number"},
+			{label:"x", 	type: "function"},
+			// row
+			{label:"4", 	type: "number"},
+			{label:"5", 	type: "number"},
+			{label:"6", 	type: "number"},
+			{label:"-", 	type: "function"},
+			// row
+			{label:"1", 	type: "number"},
+			{label:"2", 	type: "number"},
+			{label:"3", 	type: "number"},
+			{label:"+", 	type: "function"},
+			// row
+			{label:"0", 	type: "number"},
+			{label:".", 	type: "number"},
+			{label:"=", 	type: "function"},
+
+		];
+	}
+	handleClickNumnberBtn(buttonValue) {
+		//console.log(buttonValue);
+		const value = this.state.value;
+
+		this.setState({
+			value: !value ? buttonValue : value.toString().concat(buttonValue.toString())
+		});
+	}
+	handleClickFunctionBtn(buttonValue) {
+		alert("Next step - add functions for these buttons: "+buttonValue);
+
+		this.setState({
+			value: null
+		});
+	}
 	render() {
 		return(
 		<div className="calc">
 
 	    	<div className="row">
 		    	<div className="col">
-		      		<Display value="888.88" />
+		      		<Display 
+		      		value={this.state.value}
+		      		/>
 		      	</div>
 	      	</div>
 
 		    <div className="button-pad">
 
-		    	<div className="row small-gutter">
-			    	<div className="col">
-			      		<Button value="C" type="function" />
-			      	</div>
-			    	<div className="col">
-			      		<Button value="+/-" type="function" />
-			      	</div>
-			    	<div className="col">
-			      		<Button value="%" type="function" />
-			      	</div>
-			    	<div className="col">
-			      		<Button value="/" type="function" /> 
-			      	</div>
-		      	</div>
-
-		    	<div className="row small-gutter">
-			    	<div className="col">
-			      		<Button value="7" type="number" />
-			      	</div>
-			    	<div className="col">
-			      		<Button value="8" type="number" />
-			      	</div>
-			    	<div className="col">
-			      		<Button value="9" type="number"/>
-			      	</div>
-			    	<div className="col">
-			      		<Button value="x" type="function" />
-			      	</div>
-		      	</div>
-
-		    	<div className="row small-gutter">
-			    	<div className="col">
-			      		<Button value="4" type="number" />
-			      	</div>
-			    	<div className="col">
-			      		<Button value="5" type="number" />
-			      	</div>
-			    	<div className="col">
-			      		<Button value="6" type="number" />
-			      	</div>
-			    	<div className="col">
-			      		<Button value="-" type="function"/>
-			      	</div>
-		      	</div>
-
-		    	<div className="row small-gutter">
-			    	<div className="col">
-			      		<Button value="1" type="number" />
-			      	</div>
-			    	<div className="col">
-			      		<Button value="2" type="number" />
-			      	</div>
-			    	<div className="col">
-			      		<Button value="3" type="number" />
-			      	</div>
-			    	<div className="col">
-			      		<Button value="+" type="function" />
-			      	</div>
-		      	</div>
-
-		    	<div className="row small-gutter">
-			    	<div className="col-6">
-			      		<Button value="0" type="number" />
-			      	</div>
-			    	<div className="col-3">
-			      		<Button value="." type="number" />
-			      	</div>
-			    	<div className="col-3">
-			      		<Button value="=" type="function" />
-			      	</div>
+		    	<div className="row">
+			      	{this.buttons.map((item) => 
+			    		<div
+			    		key={item.label}
+			    		className={item.label === "0" ? "col-6" : "col-3"} 
+			    		>
+				      		<Button
+				      		value={item.label} 
+				      		type={item.type} 
+				      		onClick={
+				      			item.type === "number" 
+				      			? this.handleClickNumnberBtn 
+				      			: this.handleClickFunctionBtn
+				      			}
+				      		/>
+				      	</div>
+			    		)
+			    	}
 		      	</div>
 
 	      	</div>

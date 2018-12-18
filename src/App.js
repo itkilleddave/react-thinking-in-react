@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'; // was bootstrap@4.1.3 last install
 import './App.css';
 import SearchableProductTable from './Components/SearchableProductTable';
 import TicTacToe from './Components/TicTacToe';

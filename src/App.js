@@ -6,6 +6,7 @@ import FreeCodeCamp from './Components/FreeCodeCamp';
 import HelloWorld from './Components/HelloWorld';
 import Api from './Components/Api';
 import ToDo from './Components/ToDo';
+import Calculator from './Components/Calculator';
 
 const data = [
   {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
@@ -23,11 +24,12 @@ const appComponents = {
  freeCodeCamp : <FreeCodeCamp />,
  api : <Api />,
  toDo : <ToDo />,
+ calculator : <Calculator />,
 }
 
 // set runApp to the appComponents key name above that you want to run
 
-const runApp = "toDo";
+const runApp = "calculator";
 
 class App extends Component {
   render() {

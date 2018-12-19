@@ -230,6 +230,9 @@ class Calculator extends React.Component {
     	<div className="container">
 	    	<div className="row">
 		    	<div className="col">
+		    		<h3>Note: Calculator is incomplete/defective</h3>
+		    		<p>The React logic is more or less done. The remaining issues are more to do with implementing the calculation logic (regular javascript and algorithmic programming). If I come back to this, I should maybe reference <a href="https://medium.com/@krissanawat/create-a-simple-calculator-app-in-react-742022250d8f">this example</a> for ideas on the calculation functionality (though I don't like the way the display works) 
+		    			</p>
 		      		<Calc />
 		      	</div>
 	      	</div>

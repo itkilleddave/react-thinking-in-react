@@ -1,0 +1,39 @@
+body {
+/*  font: 14px "Century Gothic", Futura, sans-serif;
+*/  margin: 20px;
+}
+.display {
+	width: 100%;
+	background: #abb2c3;
+	color: white;
+	font-size: 36px;
+	text-align: right;
+	padding: 10px 20px;
+	border-radius: 6px;
+	height: 70px;
+}
+.button-pad .row {
+	padding: 10px 0 0 0;
+}
+
+.button-pad .row [class*='col'] {
+	padding-top: 10px;
+
+}
+
+
+
+
+/* remove spacing between middle columns */
+.row.small-gutter [class*='col']:not(:first-child):not(:last-child) {
+  padding-right:5px;
+  padding-left:5px;
+}
+/* remove right padding from first column */
+.row.small-gutter [class*='col']:first-child {
+  padding-right:5px;
+}
+/* remove left padding from last column */
+.row.small-gutter [class*='col']:last-child {
+  padding-left:5px;
+}

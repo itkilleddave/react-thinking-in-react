@@ -96,7 +96,7 @@ class Calc extends React.Component {
 			case '-': 
 			return parseFloat(v1)-parseFloat(v2);
 			case '+': 
-			return parseFloat(v1)-parseFloat(v2);
+			return parseFloat(v1)+parseFloat(v2);
 			case '/': 
 			return parseFloat(v1)/parseFloat(v2);
 

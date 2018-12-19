@@ -32,7 +32,7 @@ const app = {
 
 // set runApp to the appApp key name above that you want to run
 
-const runApp = "calculator";
+const runApp = "shop";
 
 class App extends Component {
   render() {

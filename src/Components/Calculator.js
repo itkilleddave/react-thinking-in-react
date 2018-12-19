@@ -51,11 +51,13 @@ class Calc extends React.Component {
 		super(props);
 		this.state = {
 			value: 0,
+			value2: 0,
 		};
 
 		this.handleClickNumnberBtn = this.handleClickNumnberBtn.bind(this);
 		this.handleClickFunctionBtn = this.handleClickFunctionBtn.bind(this);
 
+		this.activeFunction = null;
 		this.buttons = [
 			// row
 			{label:"C", 	type: "function"},
@@ -84,29 +86,111 @@ class Calc extends React.Component {
 
 		];
 	}
+	calculate(v1, v2, fn) {
+
+		//console.log([v1, v2, fn]);
+
+		switch (fn) {
+			case 'x': 
+			return parseFloat(v1)*parseFloat(v2);
+			case '-': 
+			return parseFloat(v1)-parseFloat(v2);
+			case '+': 
+			return parseFloat(v1)+parseFloat(v2);
+			case '/': 
+			return parseFloat(v1)/parseFloat(v2);
+
+		}
+
+		//this.state.value this.activeFunction
+	}
 	handleClickNumnberBtn(buttonValue) {
 		//console.log(buttonValue);
-		const value = this.state.value;
 
-		this.setState({
-			value: !value ? buttonValue : value.toString().concat(buttonValue.toString())
-		});
+
+		// apply activeFunction here
+
+
+		
+
+		// if (this.activeFunction) {
+
+		// 	// active function 
+
+		// 	console.log(this.activeFunction);
+
+
+
+		// 	this.activeFunction = null;
+
+		// } else {
+
+			// no active function, concatenate the number
+
+		//const value = this.activeFunction ? this.state.value2 :  this.state.value;
+
+		if (!this.activeFunction) {
+
+			const value = this.state.value;
+
+			this.setState({
+				value: !value ? buttonValue : value.toString().concat(buttonValue.toString())
+			});
+
+		} else {
+
+			const value = this.state.value2;
+
+			this.setState({
+				value2: !value ? buttonValue : value.toString().concat(buttonValue.toString())
+			});
+		}
+
+		
 	}
 	handleClickFunctionBtn(buttonValue) {
-		alert("Next step - add functions for these buttons: "+buttonValue);
 
-		this.setState({
-			value: null
-		});
+		//alert("Next step - add functions for these buttons: "+buttonValue);
+
+		const value = this.state.value;
+		
+		if(buttonValue === 'C') { // C is the 'clear' button function
+			
+			this.setState({
+				value: 0, 
+				value2: 0
+			});
+			this.activeFunction = null;
+
+		} else if (buttonValue === '=' || this.activeFunction) {
+
+			const value2 = this.state.value2 ? this.state.value2 : this.state.value;
+
+			const result = this.calculate(value, value2, this.activeFunction)
+
+			this.setState({
+				value: result,
+				value2: null,
+			});
+			this.activeFunction = null;
+
+		} else {
+
+			this.activeFunction = buttonValue;
+		}
+		
 	}
 	render() {
+		
+		console.log([this.activeFunction, this.state.value, this.state.value2]);
+
 		return(
 		<div className="calc">
 
 	    	<div className="row">
 		    	<div className="col">
 		      		<Display 
-		      		value={this.state.value}
+		      		value={!this.activeFunction ? this.state.value : this.state.value2}
 		      		/>
 		      	</div>
 	      	</div>
@@ -146,6 +230,9 @@ class Calculator extends React.Component {
     	<div className="container">
 	    	<div className="row">
 		    	<div className="col">
+		    		<h3>Note: Calculator is incomplete/defective</h3>
+		    		<p>The React logic is more or less done. The remaining issues are more to do with implementing the calculation logic (regular javascript and algorithmic programming). If I come back to this, I should maybe reference <a href="https://medium.com/@krissanawat/create-a-simple-calculator-app-in-react-742022250d8f">this example</a> for ideas on the calculation functionality (though I don't like the way the display works) 
+		    			</p>
 		      		<Calc />
 		      	</div>
 	      	</div>

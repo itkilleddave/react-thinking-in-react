@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'; // was bootstrap@4.1.3 last install
 import './App.css';
-import SearchableProductTable from './Components/SearchableProductTable';
-import TicTacToe from './Components/TicTacToe';
-import FreeCodeCamp from './Components/FreeCodeCamp';
-import HelloWorld from './Components/HelloWorld';
-import Api from './Components/Api';
-import ToDo from './Components/ToDo';
-import Calculator from './Components/Calculator';
-import Shop from './Components/Shop';
+import SearchableProductTable from './App/SearchableProductTable/SearchableProductTable';
+import TicTacToe from './App/TicTacToe/TicTacToe';
+import FreeCodeCamp from './App/FreeCodeCamp/FreeCodeCamp';
+import HelloWorld from './App/HelloWorld/HelloWorld';
+import Api from './App/Api/Api';
+import ToDo from './App/ToDo/ToDo';
+import Calculator from './App/Calculator/Calculator';
+import Shop from './App/Shop/Shop';
 
 const products = [
   {category: "Sporting Goods", price: "49.99", stocked: true, name: "Football"},
@@ -19,7 +19,7 @@ const products = [
   {category: "Electronics", price: "199.99", stocked: true, name: "Nexus 7"}
 ];
 
-const appComponents = {
+const app = {
  helloWorld : <HelloWorld />,
  searchableProductTable : <SearchableProductTable products={products} />,
  ticTacToe : <TicTacToe />,
@@ -30,15 +30,15 @@ const appComponents = {
  shop : <Shop products={products} />,
 }
 
-// set runApp to the appComponents key name above that you want to run
+// set runApp to the appApp key name above that you want to run
 
-const runApp = "shop";
+const runApp = "calculator";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-         {appComponents[runApp]}
+         {app[runApp]}
       </div>
     );
   }

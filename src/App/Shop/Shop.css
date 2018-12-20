@@ -1,3 +1,36 @@
 body {
   margin: 20px;
 }
+.product {
+	text-align: center;
+	border:solid 1px #ccc;
+	padding: 20px 10px 10px;
+	margin-bottom: 20px;
+	border-radius: 8px;
+}
+.product .name {
+	font-size: 14px;
+}
+.product .price {
+
+}
+.product .stock-status {
+	color:#999;
+}
+.product button {
+	margin-top:5px; 
+	font-weight: 
+}
+.cart {
+	text-align: center;
+	border:solid 1px #ccc;
+	padding: 20px 10px 10px;
+	margin-bottom: 20px;
+	border-radius: 8px;
+}
+.cart-product-list {
+	text-align: left;
+}
+.cart-product {
+	margin-bottom: 20px;
+}

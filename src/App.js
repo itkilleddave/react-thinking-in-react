@@ -27,7 +27,7 @@ const app = {
  api : <Api />,
  toDo : <ToDo />,
  calculator : <Calculator />,
- shop : <Shop products={products} />,
+ shop : <Shop />,
 }
 
 // set runApp to the appApp key name above that you want to run

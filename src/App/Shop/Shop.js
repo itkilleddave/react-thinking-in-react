@@ -72,7 +72,7 @@ class CartProduct extends React.Component {
 			<div className="cart-product">
 				<div className="row">
 					<div className="col-2 quantity">
-							{this.props.quantity}x
+							{this.props.quantity}
 					</div>
 					<div className="col-4 name">
 							{this.props.name}
@@ -90,19 +90,45 @@ class CartProduct extends React.Component {
 			)
 	}
 }
+class CartProductListHeader extends React.Component {
+
+	render() {
+		return(
+			<div className="cart-product-list-header">
+				<div className="row">
+					<div className="col-2 quantity">
+							Qty
+					</div>
+					<div className="col-4 name">
+							Product
+					</div>
+					<div className="col-4 price">
+							Price
+					</div>
+					<div className="col-2 remove">
+
+					</div>
+				</div>
+			</div>	
+			)
+	}
+}
 
 class CartProductList extends React.Component {
 
 	render(){
 		return(
 			<div className="cart-product-list">
+					
+					<CartProductListHeader />
+
 					{this.props.products.map((p) =>
 						p.added 
 						? 
 						<CartProduct 
 						key={p.name}
 						name={p.name}
-						price={p.price}
+						price={Math.round((p.added * p.price)*100)/100}
 						quantity={p.added}
 						/>
 						:
@@ -147,16 +173,19 @@ class Shop extends React.Component {
 
 	handleClickProduct(pid) {
 
-		console.log(pid+100);
+		const newProductState = this.state.products.map((p) => {
 
-		alert("Do this next: Match the id (e.g. this id is "+pid+") and increment the added prop. Then setState.");
+			if (p.id === pid) {
+				p.added++;
+			} 
+			return p;
+		});
 
-		// const newProductState = this.state.products.map((p) => {
-		// 	return p.id === pid ? added
-		// });
+		this.setState({products: newProductState});
 	}
 
 	render() {
+		//console.log(this.state.products);
 		return (
 			<div className="container">
 				<div className="row">

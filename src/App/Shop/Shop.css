@@ -40,7 +40,7 @@ body {
 	text-align: left;
 }
 .cart-product {
-	padding:10px 20px;
+	padding:10px 12px;
 }
 .cart-product .name,
 .cart-product .price,
@@ -54,8 +54,18 @@ body {
 .cart-product .price {
 	text-align: right;
 }
+.cart-product .remove {
+	text-align: right;
+}
 .cart-product:nth-child(even) {
 	background: #f2f3f5;
+}
+.cart-product-list-header {
+	font-weight: bold;
+	padding:10px 12px;
+}
+.cart-product-list-header .price {
+	text-align: right;
 }
 .remove button {
 	border-radius: 50%;

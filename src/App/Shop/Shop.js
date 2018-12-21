@@ -7,12 +7,12 @@ class Product extends React.Component {
 	
 	render(){
 		return(
-			<div className="col-4">
+			<div className="col-6">
 				<div className="product">
 					<h6 className="name">{this.props.name}</h6>
 					<h6 className="price">${this.props.price}</h6>
 					<p className="stock-status">{this.props.stocked ? "in stock" : "out of stock"}</p>
-			      	<button className="btn btn-sm btn-primary">Add to Cart</button>
+			      	<button className="btn btn-sm btn-primary">Add</button>
 		      	</div>
 	      	</div>
 		)
@@ -45,11 +45,16 @@ class CartProduct extends React.Component {
 		return(
 			<div className="cart-product">
 				<div className="row">
-					<div className="col-5">
+					<div className="col-5 name">
 							{this.props.name}
 					</div>
-					<div className="col-5">
-							{this.props.price}
+					<div className="col-5 price">
+							${this.props.price}
+					</div>
+					<div className="col-2 remove">
+						<button className="btn btn-sm btn-danger">
+						+
+						</button>
 					</div>
 				</div>
 			</div>
@@ -106,10 +111,10 @@ class Shop extends React.Component {
 		return (
 			<div className="container">
 				<div className="row">
-					<div className="col-8">
+					<div className="col-6">
 				  		<ProductList products={this.products} />
 				  	</div>
-				  	<div class="col-4">
+				  	<div class="col-6">
 				  		<Cart products={this.products} />
 				  	</div>
 			  	</div>

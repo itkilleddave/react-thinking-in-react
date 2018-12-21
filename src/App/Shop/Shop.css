@@ -1,10 +1,11 @@
 body {
   margin: 20px;
+  font-family: arial, helvetica;
 }
 .product {
 	text-align: center;
 	border:solid 1px #ccc;
-	padding: 20px 10px 10px;
+	padding: 20px;
 	margin-bottom: 20px;
 	border-radius: 8px;
 }
@@ -24,7 +25,7 @@ body {
 .cart {
 	text-align: center;
 	border:solid 1px #ccc;
-	padding: 20px 10px 10px;
+	padding: 20px;
 	margin-bottom: 20px;
 	border-radius: 8px;
 }
@@ -32,5 +33,27 @@ body {
 	text-align: left;
 }
 .cart-product {
-	margin-bottom: 20px;
+	padding:10px 20px;
+}
+.cart-product .name,
+.cart-product .price,
+.cart-product .remove {
+	line-height: 20px;
+}
+.cart-product:nth-child(even) {
+	background: #f2f3f5;
+}
+.remove button {
+	border-radius: 50%;
+	font-weight: bold;
+	line-height: 10px;
+	font-size: 20px;
+  	transform: rotate(45deg);
+  	width: 20px;
+  	height: 20px;
+  	padding: 0;
+  	margin: 0;
+  	cursor: pointer;
+
+
 }

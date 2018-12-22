@@ -15,17 +15,28 @@ class Product extends React.Component {
 	}
 
 	render(){
+
+		const available = this.props.added !== this.props.stocked 
+						? (this.props.stocked-this.props.added) 
+						: false;
+
+		const stockMsg = available ? available+" in stock" : "out of stock";
+			
 		return(
+
 			<div className="col-6">
 				<div className="product">
 					<h6 className="name">{this.props.name}</h6>
 					<h6 className="price">${this.props.price}</h6>
-					<p className="stock-status">{this.props.stocked ? "in stock" : "out of stock"}</p>
+					<p className="stock-status">
+					{stockMsg}
+					</p>
 			      	<button 
 			      	className="btn btn-sm btn-primary"
 			      	onClick={this.handleClick}
+			      	disabled={!available}
 			      	>
-			      	Add
+			      	{available ? "Add" : "Out of Stock"}
 			      	</button>
 		      	</div>
 	      	</div>
@@ -42,7 +53,9 @@ class ProductList extends React.Component {
 	}
 
 	handleClickProduct(pid) {
+		
 		this.props.onClickProduct(pid);
+
 	}
 
 	render(){
@@ -55,6 +68,7 @@ class ProductList extends React.Component {
 						id={p.id}
 						name={p.name}
 						price={p.price}
+						added={p.added}
 						stocked={p.stocked}
 						onClick={this.handleClickProduct}
 						/>
@@ -157,15 +171,15 @@ class Shop extends React.Component {
 		super(props);
 		this.state = {
 			products: [
-			{id:1, added:0, category: "Sporting Goods", price: "49.99", stocked: true, name: "Football"},
-			{id:2, added:0, category: "Sporting Goods", price: "9.99", stocked: true, name: "Baseball"},
-			{id:3, added:1, category: "Sporting Goods", price: "29.99", stocked: false, name: "Basketball"},
-			{id:4, added:0, category: "Electronics", 	price: "99.99", stocked: true, name: "iPod Touch"},
-			{id:5, added:0, category: "Electronics", 	price: "399.99", stocked: false, name: "iPhone 5"},
-			{id:6, added:2, category: "Electronics", 	price: "199.99", stocked: true, name: "Nexus 7"},
-			{id:7, added:0, category: "Electronics", 	price: "99.99", stocked: true, name: "Samsung TV"},
-			{id:8, added:0, category: "Electronics", 	price: "399.99", stocked: false, name: "iMac"},
-			{id:9, added:0, category: "Electronics", 	price: "199.99", stocked: true, name: "HP Laptop"},
+			{id:1, added:0, category: "Sporting Goods", price: "49.99", stocked: 3, name: "Football"},
+			{id:2, added:0, category: "Sporting Goods", price: "9.99", stocked: 4, name: "Baseball"},
+			{id:3, added:0, category: "Sporting Goods", price: "29.99", stocked: 11, name: "Basketball"},
+			{id:4, added:0, category: "Electronics", 	price: "99.99", stocked: 3, name: "iPod Touch"},
+			{id:5, added:0, category: "Electronics", 	price: "399.99", stocked: 0, name: "iPhone 5"},
+			{id:6, added:0, category: "Electronics", 	price: "199.99", stocked: 23, name: "Nexus 7"},
+			{id:7, added:0, category: "Electronics", 	price: "99.99", stocked: 2, name: "Samsung TV"},
+			{id:8, added:0, category: "Electronics", 	price: "399.99", stocked: 5, name: "iMac"},
+			{id:9, added:0, category: "Electronics", 	price: "199.99", stocked: 4, name: "HP Laptop"},
 			],
 		};
 		this.handleClickProduct = this.handleClickProduct.bind(this);
@@ -176,6 +190,7 @@ class Shop extends React.Component {
 		const newProductState = this.state.products.map((p) => {
 
 			if (p.id === pid) {
+				
 				p.added++;
 			} 
 			return p;
@@ -201,8 +216,9 @@ class Shop extends React.Component {
 			  	</div>
 		  	</div>
 		  );
-		}
 	}
+}
+
 
 
 export default Shop;

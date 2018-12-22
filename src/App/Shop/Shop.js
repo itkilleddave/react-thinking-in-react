@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
+
 class Product extends React.Component {
 	
 	constructor(props) {
@@ -16,11 +17,11 @@ class Product extends React.Component {
 
 	render(){
 
-		const available = this.props.added !== this.props.stocked 
-						? (this.props.stocked-this.props.added) 
-						: false;
+		// const available = this.props.added !== this.props.stocked 
+		// 				? (this.props.stocked-this.props.added) 
+		// 				: false;
 
-		const stockMsg = available ? available+" in stock" : "out of stock";
+		// const stockMsg = available ? available+" in stock" : "out of stock";
 			
 		return(
 
@@ -29,14 +30,20 @@ class Product extends React.Component {
 					<h6 className="name">{this.props.name}</h6>
 					<h6 className="price">${this.props.price}</h6>
 					<p className="stock-status">
-					{stockMsg}
+					{
+					this.props.available 
+					? 
+					this.props.available+" in stock"
+					:
+					"out of stock"
+					}
 					</p>
 			      	<button 
 			      	className="btn btn-sm btn-primary"
 			      	onClick={this.handleClick}
-			      	disabled={!available}
+			      	disabled={!this.props.available}
 			      	>
-			      	{available ? "Add" : "Out of Stock"}
+			      	Add
 			      	</button>
 		      	</div>
 	      	</div>
@@ -68,8 +75,7 @@ class ProductList extends React.Component {
 						id={p.id}
 						name={p.name}
 						price={p.price}
-						added={p.added}
-						stocked={p.stocked}
+						available={p.available}
 						onClick={this.handleClickProduct}
 						/>
 					)}
@@ -92,7 +98,7 @@ class CartProduct extends React.Component {
 							{this.props.name}
 					</div>
 					<div className="col-4 price">
-							${this.props.price}
+							${Math.round((this.props.quantity * this.props.price)*100)/100}
 					</div>
 					<div className="col-2 remove">
 						<button className="btn btn-sm btn-danger">
@@ -137,16 +143,12 @@ class CartProductList extends React.Component {
 					<CartProductListHeader />
 
 					{this.props.products.map((p) =>
-						p.added 
-						? 
 						<CartProduct 
 						key={p.name}
 						name={p.name}
-						price={Math.round((p.added * p.price)*100)/100}
-						quantity={p.added}
+						price={p.price}
+						quantity={p.quantity}
 						/>
-						:
-						false
 					)}
 			</div>
 		)
@@ -170,48 +172,94 @@ class Shop extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			products: [
-			{id:1, added:0, category: "Sporting Goods", price: "49.99", stocked: 3, name: "Football"},
-			{id:2, added:0, category: "Sporting Goods", price: "9.99", stocked: 4, name: "Baseball"},
-			{id:3, added:0, category: "Sporting Goods", price: "29.99", stocked: 11, name: "Basketball"},
-			{id:4, added:0, category: "Electronics", 	price: "99.99", stocked: 3, name: "iPod Touch"},
-			{id:5, added:0, category: "Electronics", 	price: "399.99", stocked: 0, name: "iPhone 5"},
-			{id:6, added:0, category: "Electronics", 	price: "199.99", stocked: 23, name: "Nexus 7"},
-			{id:7, added:0, category: "Electronics", 	price: "99.99", stocked: 2, name: "Samsung TV"},
-			{id:8, added:0, category: "Electronics", 	price: "399.99", stocked: 5, name: "iMac"},
-			{id:9, added:0, category: "Electronics", 	price: "199.99", stocked: 4, name: "HP Laptop"},
-			],
+			cartProducts:[
+						//{id: 7, quantity:2},
+						//{id: 2, quantity:3},
+						],
 		};
 		this.handleClickProduct = this.handleClickProduct.bind(this);
 	}
 
 	handleClickProduct(pid) {
 
-		const newProductState = this.state.products.map((p) => {
+		// calcualuate remaining stock in render function and pass to Shop Products
 
-			if (p.id === pid) {
-				
-				p.added++;
+		const products = this.state.cartProducts.slice();
+
+		let newProduct = true;
+
+		for (var i = 0; i < products.length; i++) {
+			const  cp  = products[i];
+			if(cp.id === pid) {
+				cp.quantity++
+				newProduct = false; // is existing object.
 			} 
-			return p;
-		});
+		}
+		
+		const newProducts = newProduct ? products.concat({id: pid, quantity: 1}) : products;
 
-		this.setState({products: newProductState});
+		this.setState({
+			cartProducts: newProducts
+		});
 	}
 
+	cloneObject(src) {
+		let target = {};
+		for (let prop in src) {
+			if (src.hasOwnProperty(prop)) {
+			  target[prop] = src[prop];
+			}
+		}
+		return target;
+	}
 	render() {
-		//console.log(this.state.products);
+
+		//console.log(this.state);
+
+		// returns list of any product objects matching shop (all) product ids against cart id
+		// but adds the quantiity from cart products
+
+		const cartProducts = this.state.cartProducts.map(cp => {
+
+			for (var i = 0; i < this.props.products.length; i++) {
+				const p = this.props.products[i];
+				if (p.id === cp.id) {
+					p.quantity = cp.quantity;
+					return p;
+				}
+			}
+
+		});
+
+		// clones the objects fro props.products, but adds 'available' property (which considers products in cart)
+
+		const shopProducts = this.props.products.map(p => {
+
+			let sp = this.cloneObject(p);
+
+			sp.available = p.stocked;
+
+			for (var i = 0; i < cartProducts.length; i++) {
+				const cp = cartProducts[i];
+				if (p.id === cp.id) {
+					sp.available = p.stocked - cp.quantity;
+				}
+			}	
+
+			return sp;
+		});
+
 		return (
 			<div className="container">
 				<div className="row">
 					<div className="col-6">
 				  		<ProductList 
-				  		products={this.state.products} 
+				  		products={shopProducts} 
 				  		onClickProduct={this.handleClickProduct}
 				  		/>
 				  	</div>
 				  	<div className="col-6">
-				  		<Cart products={this.state.products} />
+				  		<Cart products={cartProducts} />
 				  	</div>
 			  	</div>
 		  	</div>

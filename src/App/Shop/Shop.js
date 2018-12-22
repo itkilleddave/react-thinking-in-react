@@ -16,31 +16,31 @@ class Product extends React.Component {
 	
 		return(
 
-			<div className="col-6">
+			<div className="col-6 col-sm-4 col-md-6 col-lg-4 col-xl-3">
 				<div className="product">
 					<h6 className="name">{this.props.name}</h6>
 					<h6 className="price">${this.props.price}</h6>
-					<p className="stock-status">
+					<div className="stock-status">
 					{
 					this.props.available
 					? 
 					(
 						this.props.available===1
 						?
-						<div class="alert alert-warning" role="alert">
+						<div className="alert alert-warning" role="alert">
 						Only {this.props.available} left!
 						</div>
 						:
-						<div class="alert alert-info" role="alert">
+						<div className="alert alert-info" role="alert">
 						{this.props.available} in stock
 						</div>
 					)
 					:
-					<div class="alert alert-danger" role="alert">
+					<div className="alert alert-danger" role="alert">
 					Out of stock
 					</div>
 					}
-					</p>
+					</div>
 			      	<button 
 			      	className="btn btn-sm btn-primary"
 			      	onClick={this.handleClick}
@@ -341,13 +341,13 @@ class Shop extends React.Component {
 		return (
 			<div className="container">
 				<div className="row">
-					<div className="col-6">
+					<div className="col-12 col-md-6 col-xl-8">
 				  		<ProductList 
 				  		products={shopProducts} 
 				  		onClickProduct={this.handleClickProduct}
 				  		/>
 				  	</div>
-				  	<div className="col-6">
+				  	<div className="col-12 col-md-6 col-xl-4">
 				  		<Cart 
 				  		products={cartProducts} 
 				  		onClickRemoveProduct={this.handleClickRemoveProductFromCart}

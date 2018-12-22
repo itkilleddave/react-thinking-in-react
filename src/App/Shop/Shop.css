@@ -67,6 +67,16 @@ body {
 .cart-product-list-header .price {
 	text-align: right;
 }
+.cart-product-list-totals {
+	font-weight: bold;
+	padding:10px 12px;
+	border-top:1px #ccc solid;
+	margin-top:20px;
+	padding-top: 10px;
+}
+.cart-product-list-totals .price {
+	text-align: right;
+}
 .remove button {
 	border-radius: 50%;
 	font-weight: bold;

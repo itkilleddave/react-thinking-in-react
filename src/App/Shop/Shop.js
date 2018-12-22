@@ -142,10 +142,61 @@ class CartProductListHeader extends React.Component {
 			)
 	}
 }
+class CartProductListTotals extends React.Component {
+
+	render() {
+		return(
+			<div className="cart-product-list-totals">
+				<div className="row">
+					<div className="col-10">
+						<h5>Total Items in Cart:</h5>
+					</div>
+					<div className="col-2 text-right">
+						<h5>{this.props.quantity}</h5>
+					</div>
+					<div className="col-6">
+						<h5>Total Price: </h5>
+					</div>
+					<div className="col-6 text-right">
+						<h5>${Math.round((this.props.price)*100)/100}</h5>
+					</div>
+				</div>
+			</div>	
+			)
+	}
+}
 
 class CartProductList extends React.Component {
 
+	sumQuantity() {
+		
+		const products = this.props.products;
+		let quantity = 0;
+
+		for (var i = 0; i < products.length; i++) {
+			quantity += parseInt(products[i].quantity);
+		}
+
+		return quantity;
+
+	}
+	sumPrice() {
+		
+		const products = this.props.products;
+		let price = 0;
+
+		for (var i = 0; i < products.length; i++) {
+			price += parseInt(products[i].price)*parseInt(products[i].quantity);
+		}
+
+		return price;
+
+	}
+
 	render(){
+
+		//console.log(this.props.products);
+
 		return(
 			<div className="cart-product-list">
 					
@@ -161,6 +212,11 @@ class CartProductList extends React.Component {
 						onClickRemove={this.props.onClickRemoveProduct}
 						/>
 					)}
+
+					<CartProductListTotals 
+					quantity={this.sumQuantity()} 
+					price={this.sumPrice()} 
+					/>
 			</div>
 		)
 	}
@@ -189,6 +245,7 @@ class Shop extends React.Component {
 			cartProducts:[
 						{id: 7, quantity:2},
 						{id: 6, quantity:3},
+						{id: 2, quantity:1},
 						],
 		};
 		this.handleClickProduct = this.handleClickProduct.bind(this);

@@ -13,13 +13,7 @@ class Product extends React.Component {
 	}
 
 	render(){
-
-		// const available = this.props.added !== this.props.stocked 
-		// 				? (this.props.stocked-this.props.added) 
-		// 				: false;
-
-		// const stockMsg = available ? available+" in stock" : "out of stock";
-			
+	
 		return(
 
 			<div className="col-6">
@@ -28,11 +22,23 @@ class Product extends React.Component {
 					<h6 className="price">${this.props.price}</h6>
 					<p className="stock-status">
 					{
-					this.props.available 
+					this.props.available
 					? 
-					this.props.available+" in stock"
+					(
+						this.props.available===1
+						?
+						<div class="alert alert-warning" role="alert">
+						Only {this.props.available} left!
+						</div>
+						:
+						<div class="alert alert-info" role="alert">
+						{this.props.available} in stock
+						</div>
+					)
 					:
-					"out of stock"
+					<div class="alert alert-danger" role="alert">
+					Out of stock
+					</div>
 					}
 					</p>
 			      	<button 
@@ -148,10 +154,10 @@ class CartProductListTotals extends React.Component {
 		return(
 			<div className="cart-product-list-totals">
 				<div className="row">
-					<div className="col-10">
+					<div className="col-9">
 						<h5>Total Items in Cart:</h5>
 					</div>
-					<div className="col-2 text-right">
+					<div className="col-3 text-right">
 						<h5>{this.props.quantity}</h5>
 					</div>
 					<div className="col-6">
@@ -181,12 +187,12 @@ class CartProductList extends React.Component {
 
 	}
 	sumPrice() {
-		
+
 		const products = this.props.products;
 		let price = 0;
 
 		for (var i = 0; i < products.length; i++) {
-			price += parseInt(products[i].price)*parseInt(products[i].quantity);
+			price += parseFloat(products[i].price)*parseInt(products[i].quantity);
 		}
 
 		return price;

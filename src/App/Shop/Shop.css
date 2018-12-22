@@ -5,6 +5,16 @@ body {
 .btn {
 	font-weight: bold;
 }
+.alert {
+	padding: 4px;
+	font-size: 12px;
+	font-weight: bold;
+	border: none;
+}
+.alert-info {
+	color: #9199a9;
+	background: #f2f3f5;
+}
 .product {
 	text-align: center;
 	border:solid 1px #ccc;

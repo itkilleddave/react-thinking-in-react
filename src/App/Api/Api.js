@@ -1,6 +1,5 @@
 import './Api.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 class Background extends React.Component {
 
@@ -20,7 +19,7 @@ class Background extends React.Component {
 			let pictures = data.results.map((pic) => {
 				return (
 					<div key={pic.cell}> {/*changed from 'pic.results' (tutorial) to 'pic.cell' (currently available in Api)*/}
-						<img src={pic.picture.medium} />
+						<img alt="" src={pic.picture.medium} />
 					</div>
 				)
 			})

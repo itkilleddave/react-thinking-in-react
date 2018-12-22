@@ -1,6 +1,5 @@
 import './TicTacToe.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 class TicTacToe extends React.Component {
   render() {

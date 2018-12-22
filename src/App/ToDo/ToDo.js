@@ -1,6 +1,5 @@
 import './ToDo.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 // note: 'initData' will simulate the data that's passed from a backend/database to 'seed' the component
 // It doesnt break the 'single source of truth' rule, as it's a constant (read only), 

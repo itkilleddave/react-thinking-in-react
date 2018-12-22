@@ -1,8 +1,5 @@
 import './Shop.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-
 
 class Product extends React.Component {
 	
@@ -224,7 +221,7 @@ class Shop extends React.Component {
 	handleClickRemoveProductFromCart(pid) {
 
 		const cartProducts = this.state.cartProducts.filter((p) => {
-			return p.id == pid ? false : true;
+			return p.id === pid ? false : true;
 		});
 
 		this.setState({
@@ -257,7 +254,7 @@ class Shop extends React.Component {
 					return p;
 				}
 			}
-
+			return cp;
 		});
 
 		// clones the objects fro props.products, but adds 'available' property (which considers products in cart)

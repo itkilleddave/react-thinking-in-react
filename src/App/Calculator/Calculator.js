@@ -1,6 +1,5 @@
 import './Calculator.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 class Display extends React.Component {
 
@@ -99,7 +98,8 @@ class Calc extends React.Component {
 			return parseFloat(v1)+parseFloat(v2);
 			case '/': 
 			return parseFloat(v1)/parseFloat(v2);
-
+			default:
+			return null;
 		}
 
 		//this.state.value this.activeFunction

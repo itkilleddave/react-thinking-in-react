@@ -87,6 +87,15 @@ class ProductList extends React.Component {
 
 class CartProduct extends React.Component {
 
+	constructor(props) {
+		super(props);
+		this.handleClickRemove = this.handleClickRemove.bind(this);
+	}
+
+	handleClickRemove() {
+		return this.props.onClickRemove(this.props.id);
+	}
+
 	render(){
 		return(
 			<div className="cart-product">
@@ -101,7 +110,10 @@ class CartProduct extends React.Component {
 							${Math.round((this.props.quantity * this.props.price)*100)/100}
 					</div>
 					<div className="col-2 remove">
-						<button className="btn btn-sm btn-danger">
+						<button 
+						className="btn btn-sm btn-danger"
+						onClick={this.handleClickRemove}
+						>
 						+
 						</button>
 					</div>
@@ -144,10 +156,12 @@ class CartProductList extends React.Component {
 
 					{this.props.products.map((p) =>
 						<CartProduct 
-						key={p.name}
+						key={p.id}
+						id={p.id}
 						name={p.name}
 						price={p.price}
 						quantity={p.quantity}
+						onClickRemove={this.props.onClickRemoveProduct}
 						/>
 					)}
 			</div>
@@ -161,7 +175,10 @@ class Cart extends React.Component {
 			<div className="cart">
 				<h4>My Cart</h4>
 				<hr />
-				<CartProductList products={this.props.products}/>
+				<CartProductList 
+				products={this.props.products}
+				onClickRemoveProduct={this.props.onClickRemoveProduct}
+				/>
 			</div>
 			)
 	}
@@ -173,11 +190,12 @@ class Shop extends React.Component {
 		super(props);
 		this.state = {
 			cartProducts:[
-						//{id: 7, quantity:2},
-						//{id: 2, quantity:3},
+						{id: 7, quantity:2},
+						{id: 6, quantity:3},
 						],
 		};
 		this.handleClickProduct = this.handleClickProduct.bind(this);
+		this.handleClickRemoveProductFromCart = this.handleClickRemoveProductFromCart.bind(this);
 	}
 
 	handleClickProduct(pid) {
@@ -200,6 +218,17 @@ class Shop extends React.Component {
 
 		this.setState({
 			cartProducts: newProducts
+		});
+	}
+
+	handleClickRemoveProductFromCart(pid) {
+
+		const cartProducts = this.state.cartProducts.filter((p) => {
+			return p.id == pid ? false : true;
+		});
+
+		this.setState({
+			cartProducts: cartProducts
 		});
 	}
 
@@ -235,7 +264,7 @@ class Shop extends React.Component {
 
 		const shopProducts = this.props.products.map(p => {
 
-			let sp = this.cloneObject(p);
+			const sp = this.cloneObject(p);
 
 			sp.available = p.stocked;
 
@@ -259,7 +288,10 @@ class Shop extends React.Component {
 				  		/>
 				  	</div>
 				  	<div className="col-6">
-				  		<Cart products={cartProducts} />
+				  		<Cart 
+				  		products={cartProducts} 
+				  		onClickRemoveProduct={this.handleClickRemoveProductFromCart}
+				  		/>
 				  	</div>
 			  	</div>
 		  	</div>

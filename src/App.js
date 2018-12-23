@@ -9,6 +9,7 @@ import Api from './App/Api/Api';
 import ToDo from './App/ToDo/ToDo';
 import Calculator from './App/Calculator/Calculator';
 import Shop from './App/Shop/Shop';
+import Router from './App/Router/Router';
 
 const products = [
   {category: "Sporting Goods", price: "49.99", stocked: true, name: "Football"},
@@ -40,11 +41,12 @@ const app = {
  toDo : <ToDo />,
  calculator : <Calculator />,
  shop : <Shop products={shopProducts} />,
+ router : <Router />,
 }
 
 // set runApp to the appApp key name above that you want to run
 
-const runApp = "shop";
+const runApp = "router";
 
 class App extends Component {
   render() {

@@ -22,8 +22,8 @@ const products = [
 const shopProducts = [
 {id:1, category: "Sporting Goods", price: "49.99", stocked: 3, name: "Football"},
 {id:2, category: "Sporting Goods", price: "9.99", stocked: 4, name: "Baseball"},
-{id:3, category: "Sporting Goods", price: "29.99", stocked: 11, name: "Basketball"},
-{id:4, category: "Electronics",   price: "99.99", stocked: 3, name: "iPod Touch"},
+{id:3, category: "Sporting Goods", price: "29.99", stocked: 1, name: "Basketball"},
+{id:4, category: "Electronics",   price: "99.99", stocked: 7, name: "iPod Touch"},
 {id:5, category: "Electronics",   price: "399.99", stocked: 0, name: "iPhone 5"},
 {id:6, category: "Electronics",   price: "199.99", stocked: 23, name: "Nexus 7"},
 {id:7, category: "Electronics",   price: "99.99", stocked: 5, name: "Samsung TV"},

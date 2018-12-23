@@ -5,43 +5,82 @@ class Product extends React.Component {
 	
 	constructor(props) {
 		super(props);
-		this.handleClick = this.handleClick.bind(this);
+		this.handleClickAdd = this.handleClickAdd.bind(this);
+		this.handleClickRemove = this.handleClickRemove.bind(this);
 	}
 
-	handleClick() {
-		this.props.onClick(this.props.id);
+	handleClickAdd() {
+		this.props.onClickAdd(this.props.id);
+	}
+
+	handleClickRemove() {
+		this.props.onClickRemove(this.props.id);
 	}
 
 	render(){
+		
+		//console.log(this.props.inCart);
 
-		// const available = this.props.added !== this.props.stocked 
-		// 				? (this.props.stocked-this.props.added) 
-		// 				: false;
-
-		// const stockMsg = available ? available+" in stock" : "out of stock";
-			
 		return(
 
-			<div className="col-6">
+			<div className="col-6 col-sm-4 col-md-6 col-lg-4 col-xl-3">
 				<div className="product">
 					<h6 className="name">{this.props.name}</h6>
 					<h6 className="price">${this.props.price}</h6>
-					<p className="stock-status">
+					<div className="stock-status">
 					{
-					this.props.available 
-					? 
-					this.props.available+" in stock"
-					:
-					"out of stock"
+						this.props.available
+						? 
+						(
+							this.props.available===1
+							?
+							<div className="alert alert-warning" role="alert">
+							Only {this.props.available} left!
+							</div>
+							:
+							<div className="alert alert-info" role="alert">
+							{this.props.available} in stock
+							</div>
+						)
+						:
+						<div className="alert alert-danger" role="alert">
+						Out of stock
+						</div>
 					}
-					</p>
-			      	<button 
-			      	className="btn btn-sm btn-primary"
-			      	onClick={this.handleClick}
-			      	disabled={!this.props.available}
-			      	>
-			      	Add
-			      	</button>
+					</div>
+					{
+						this.props.inCart
+						? // - / + button
+						<div className="btn-group btn-group-sm" role="group">
+							<button 
+							type="button" 
+							className="btn btn-primary"
+							onClick={this.handleClickRemove}
+							>
+							-
+							</button>
+
+							<div className="cart-status">{this.props.inCart} in<br />Cart</div>
+							
+							<button 
+							type="button" 
+							className="btn btn-primary"
+							onClick={this.handleClickAdd}
+							disabled={!this.props.available}
+							>
+							+
+							</button>
+						</div>
+						: // 'Add to Cart' button
+				      	<button 
+						type="button"
+				      	className="btn btn-sm btn-primary"
+				      	onClick={this.handleClickAdd}
+				      	disabled={!this.props.available}
+				      	>
+				      	Add to Cart
+				      	</button>
+			      	}
 		      	</div>
 	      	</div>
 		)
@@ -53,13 +92,17 @@ class ProductList extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.handleClickProduct = this.handleClickProduct.bind(this);
+		this.handleClickAddProduct = this.handleClickAddProduct.bind(this);
+		this.handleClickRemoveProduct = this.handleClickRemoveProduct.bind(this);
+
 	}
 
-	handleClickProduct(pid) {
-		
-		this.props.onClickProduct(pid);
+	handleClickAddProduct(pid) {
+		this.props.onClickAddProduct(pid, 1);
+	}
 
+	handleClickRemoveProduct(pid) {
+		this.props.onClickRemoveProduct(pid, 1);
 	}
 
 	render(){
@@ -73,7 +116,9 @@ class ProductList extends React.Component {
 						name={p.name}
 						price={p.price}
 						available={p.available}
-						onClick={this.handleClickProduct}
+						inCart={p.inCart}
+						onClickAdd={this.handleClickAddProduct}
+						onClickRemove={this.handleClickRemoveProduct}
 						/>
 					)}
 				</div>
@@ -90,7 +135,7 @@ class CartProduct extends React.Component {
 	}
 
 	handleClickRemove() {
-		return this.props.onClickRemove(this.props.id);
+		return this.props.onClickRemove(this.props.id, this.props.quantity);
 	}
 
 	render(){
@@ -142,10 +187,61 @@ class CartProductListHeader extends React.Component {
 			)
 	}
 }
+class CartProductListTotals extends React.Component {
+
+	render() {
+		return(
+			<div className="cart-product-list-totals">
+				<div className="row">
+					<div className="col-9">
+						<h5>Total Items in Cart:</h5>
+					</div>
+					<div className="col-3 text-right">
+						<h5>{this.props.quantity}</h5>
+					</div>
+					<div className="col-6">
+						<h5>Total Price: </h5>
+					</div>
+					<div className="col-6 text-right">
+						<h5>${Math.round((this.props.price)*100)/100}</h5>
+					</div>
+				</div>
+			</div>	
+			)
+	}
+}
 
 class CartProductList extends React.Component {
 
+	sumQuantity() {
+		
+		const products = this.props.products;
+		let quantity = 0;
+
+		for (var i = 0; i < products.length; i++) {
+			quantity += parseInt(products[i].quantity);
+		}
+
+		return quantity;
+
+	}
+	sumPrice() {
+
+		const products = this.props.products;
+		let price = 0;
+
+		for (var i = 0; i < products.length; i++) {
+			price += parseFloat(products[i].price)*parseInt(products[i].quantity);
+		}
+
+		return price;
+
+	}
+
 	render(){
+
+		//console.log(this.props.products);
+
 		return(
 			<div className="cart-product-list">
 					
@@ -161,6 +257,11 @@ class CartProductList extends React.Component {
 						onClickRemove={this.props.onClickRemoveProduct}
 						/>
 					)}
+
+					<CartProductListTotals 
+					quantity={this.sumQuantity()} 
+					price={this.sumPrice()} 
+					/>
 			</div>
 		)
 	}
@@ -189,13 +290,14 @@ class Shop extends React.Component {
 			cartProducts:[
 						{id: 7, quantity:2},
 						{id: 6, quantity:3},
+						{id: 2, quantity:1},
 						],
 		};
-		this.handleClickProduct = this.handleClickProduct.bind(this);
+		this.handleClickAddProductToCart = this.handleClickAddProductToCart.bind(this);
 		this.handleClickRemoveProductFromCart = this.handleClickRemoveProductFromCart.bind(this);
 	}
 
-	handleClickProduct(pid) {
+	handleClickAddProductToCart(pid, qty) {
 
 		// calcualuate remaining stock in render function and pass to Shop Products
 
@@ -204,9 +306,9 @@ class Shop extends React.Component {
 		let newProduct = true;
 
 		for (var i = 0; i < products.length; i++) {
-			const  cp  = products[i];
-			if(cp.id === pid) {
-				cp.quantity++
+			const  p  = products[i];
+			if(p.id === pid) {
+				p.quantity += qty;
 				newProduct = false; // is existing object.
 			} 
 		}
@@ -218,16 +320,31 @@ class Shop extends React.Component {
 		});
 	}
 
-	handleClickRemoveProductFromCart(pid) {
+	handleClickRemoveProductFromCart(pid, qty) {
 
-		const cartProducts = this.state.cartProducts.filter((p) => {
-			return p.id === pid ? false : true;
+		console.log([pid, qty]);
+
+		const products = this.state.cartProducts.slice();
+
+		for (var i = 0; i < products.length; i++) {
+			const  p  = products[i];
+			if(p.id === pid) {
+				p.quantity -= qty;
+				break;
+			} 
+		}
+
+		// remove the product if no quantity
+
+		const filteredProducts = products.filter((p) => {
+			return p.quantity > 0 ? true : false;
 		});
 
 		this.setState({
-			cartProducts: cartProducts
+			cartProducts: filteredProducts
 		});
 	}
+
 
 	cloneObject(src) {
 		let target = {};
@@ -264,11 +381,13 @@ class Shop extends React.Component {
 			const sp = this.cloneObject(p);
 
 			sp.available = p.stocked;
+			sp.inCart = 0;
 
 			for (var i = 0; i < cartProducts.length; i++) {
 				const cp = cartProducts[i];
 				if (p.id === cp.id) {
 					sp.available = p.stocked - cp.quantity;
+					sp.inCart = cp.quantity;
 				}
 			}	
 
@@ -278,13 +397,14 @@ class Shop extends React.Component {
 		return (
 			<div className="container">
 				<div className="row">
-					<div className="col-6">
+					<div className="col-12 col-md-6 col-xl-8">
 				  		<ProductList 
 				  		products={shopProducts} 
-				  		onClickProduct={this.handleClickProduct}
+				  		onClickAddProduct={this.handleClickAddProductToCart}
+				  		onClickRemoveProduct={this.handleClickRemoveProductFromCart}
 				  		/>
 				  	</div>
-				  	<div className="col-6">
+				  	<div className="col-12 col-md-6 col-xl-4">
 				  		<Cart 
 				  		products={cartProducts} 
 				  		onClickRemoveProduct={this.handleClickRemoveProductFromCart}

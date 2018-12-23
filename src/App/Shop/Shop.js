@@ -308,7 +308,7 @@ class Shop extends React.Component {
 		for (var i = 0; i < products.length; i++) {
 			const  p  = products[i];
 			if(p.id === pid) {
-				p.quantity++
+				p.quantity += qty;
 				newProduct = false; // is existing object.
 			} 
 		}

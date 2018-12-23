@@ -1,6 +1,21 @@
 import './Shop.css';
 import React from 'react';
 
+/*
+
+// Shop Component Structure
+
+Shop
+... ProductList
+...... [ Product, ... ] 
+... Cart
+...... CartProductList
+......... CartProductListHeader
+......... [ CartProduct, ... ] 
+......... CartProductListTotals
+
+*/
+
 class Product extends React.Component {
 	
 	constructor(props) {

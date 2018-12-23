@@ -46,7 +46,7 @@ const app = {
 
 // set runApp to the appApp key name above that you want to run
 
-const runApp = "router";
+const runApp = "helloWorld";
 
 class App extends Component {
   render() {

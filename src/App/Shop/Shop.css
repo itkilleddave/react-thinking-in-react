@@ -32,6 +32,19 @@ body {
 .product .stock-status {
 	color:#999;
 }
+.product .cart-status {
+	margin-top: 5px;
+/*	border:solid rgb(0, 123, 255);
+	border-width: 1px 0px;*/
+	border-left:solid 1px #fff;
+	border-right:solid 1px #fff;
+	background: rgb(0, 123, 255);
+	font-size: 10px;
+	font-weight: bold;
+	color:#fff;
+	padding: 4px 10px;
+	height: 31px;
+}
 .product button {
 	margin-top:5px; 
 	font-weight: 

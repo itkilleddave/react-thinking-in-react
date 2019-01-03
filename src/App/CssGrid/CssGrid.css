@@ -14,7 +14,7 @@ html {
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
-  background: var(--yellow);
+  background: #fff; 
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -32,3 +32,4 @@ h1,h2,h3,h4,h5,h6 {
 .item p {
 	margin: 0 0 5px 0;
 }
+

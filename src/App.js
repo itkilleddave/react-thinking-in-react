@@ -10,6 +10,7 @@ import ToDo from './App/ToDo/ToDo';
 import Calculator from './App/Calculator/Calculator';
 import Shop from './App/Shop/Shop';
 import Router from './App/Router/Router';
+import CssGrid from './App/CssGrid/CssGrid';
 
 const products = [
   {category: "Sporting Goods", price: "49.99", stocked: true, name: "Football"},
@@ -42,11 +43,12 @@ const app = {
  calculator : <Calculator />,
  shop : <Shop products={shopProducts} />,
  router : <Router />,
+ cssGrid : <CssGrid />,
 }
 
 // set runApp to the appApp key name above that you want to run
 
-const runApp = "router";
+const runApp = "cssGrid";
 
 class App extends Component {
   render() {

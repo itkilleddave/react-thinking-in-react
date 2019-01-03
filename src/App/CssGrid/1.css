@@ -1,12 +1,18 @@
 .container {
 	display: grid;
 	grid-gap: 10px;
-	grid-template-columns: repeat(5, 1fr)
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	/*height: 300px;*/
 }
 .item9 {
 	background-color: blue;
 	color: white;
 /*	width: 300px;*/
-	grid-column: span 2;
-	grid-row: span 3;
+/*	grid-column: span 2;
+	grid-row: span 3;*/
+/*	grid-column-start: 2;
+	grid-column-end: 6;*/
+	grid-column: 1 / -1;
+	grid-row: 2 / 4;
 }

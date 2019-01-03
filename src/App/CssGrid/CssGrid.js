@@ -6,21 +6,31 @@ class CssGrid extends React.Component {
   render() {
     return (
       <div className="container">
-      	<div className="item">1</div>
-      	<div className="item">2</div>
-      	<div className="item">3</div>
-      	<div className="item">4</div>
-      	<div className="item">5</div>
-      	<div className="item">6</div>
-      	<div className="item">7</div>
-      	<div className="item">8</div>
-      	<div className="item">9</div>
-      	<div className="item">10</div>
-      	<div className="item">11</div>
-      	<div className="item">12</div>
-      	<div className="item">13</div>
-      	<div className="item">14</div>
-      	<div className="item">15</div>
+      	<div className="item item1">1</div>
+      	<div className="item item2">2</div>
+      	<div className="item item3">3</div>
+      	<div className="item item4">4</div>
+      	<div className="item item5">5</div>
+      	<div className="item item6">6</div>
+      	<div className="item item7">7</div>
+      	<div className="item item8">8</div>
+      	<div className="item item9">9</div>
+      	<div className="item item10">10</div>
+      	<div className="item item11">11</div>
+      	<div className="item item12">12</div>
+      	<div className="item item13">13</div>
+      	<div className="item item14">14</div>
+      	<div className="item item15">15</div>
+      	<div className="item item16">16</div>
+      	<div className="item item17">17</div>
+      	<div className="item item18">18</div>
+      	<div className="item item19">19</div>
+      	<div className="item item20">20</div>
+      	<div className="item item21">21</div>
+      	<div className="item item22">22</div>
+      	<div className="item item23">23</div>
+      	<div className="item item24">24</div>
+      	<div className="item item25">25</div>
       </div>
       );
   }

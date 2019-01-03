@@ -1,4 +1,34 @@
+:root {
+	--yellow: #ffc600;
+	--black: #272727;
+}
+html {
+	box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
+  background: var(--yellow);
+}
+
+h1,h2,h3,h4,h5,h6 {
+	margin: 0 0 5px 0;
+}
+
+.item {
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	border: 5px solid rgba(0,0,0,0.03);
+	font-size: 33px;
+	background-color: #ffc600;
+}
+.item p {
+	margin: 0 0 5px 0;
 }

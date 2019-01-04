@@ -5,10 +5,15 @@
 	grid-template-rows: repeat(5, 1fr);*/
 /*	grid-template-columns: repeat(5, 1fr 2fr);
 	grid-template-rows: repeat(10, 50px);*/
-	grid-template-columns: repeat(auto-fill, 150px);
+	grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+
+
+}
+.item {
+	font-size: 15px;
 }
 .item4 {
-	grid-column-end: -1;
+/*	grid-column-end: -1;*/
 }
 /*
 .item1 {

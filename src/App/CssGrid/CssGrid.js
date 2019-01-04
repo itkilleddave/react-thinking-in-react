@@ -10,7 +10,7 @@ class CssGrid extends React.Component {
       	<div className="item item2">Item 02</div>
       	<div className="item item3">Item 03</div>
       	<div className="item item4">Item 04</div>
-{/*      	<div className="item item5">Item 05</div>
+		<div className="item item5">Item 05</div>
       	<div className="item item6">Item 06</div>
       	<div className="item item7">Item 07</div>
       	<div className="item item8">Item 08</div>
@@ -30,7 +30,7 @@ class CssGrid extends React.Component {
       	<div className="item item22">Item 22</div>
       	<div className="item item23">Item 23</div>
       	<div className="item item24">Item 24</div>
-      	<div className="item item25">Item 25</div>*/}
+      	<div className="item item25">Item 25</div>
       </div>
       );
   }

@@ -1,5 +1,5 @@
 import './CssGrid.css';
-import './1.css';
+//import './1.css';
 import React from 'react';
 
 class CssGrid extends React.Component {
